@@ -5,7 +5,9 @@
     ],
     "jsRules": {},
     "rules": {
+        "array-type": false,
         "arrow-parens": false,
+        "interface-name": false,
         "no-console": false,
         "object-literal-sort-keys": false,
         "semicolon": [
