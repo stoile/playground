@@ -5,7 +5,14 @@
     ],
     "jsRules": {},
     "rules": {
+        "arrow-parens": false,
+        "no-console": false,
+        "object-literal-sort-keys": false,
         "semicolon": [
+            true,
+            "never"
+        ],
+        "trailing-comma": [
             true,
             "never"
         ]
