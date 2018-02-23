@@ -15,19 +15,31 @@ const client = new ApolloClient({
 
 import gql from "graphql-tag"
 
+interface ResponseData {
+  author: {
+    firstName: string
+    lastName: string
+    posts: {
+      title: string
+    }[]
+  }
+}
+
 client.query({
   query: gql`
     query {
-      author(firstName:"Edmond", lastName: "Jones"){
+      author(firstName: "Edmond", lastName: "Jones") {
         firstName
         lastName
-        posts{
+        posts {
           title
-          views
         }
       }
     }
   `,
 })
-  .then(data => console.log(data))
+  .then(data => {
+    const response: ResponseData = data.data as ResponseData
+    console.log("Author: ", response.author)
+  })
   .catch(error => console.error(error))
