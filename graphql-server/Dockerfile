@@ -2,11 +2,11 @@ FROM node:9.6-alpine
 
 WORKDIR /opt/
 
-COPY package.json package-lock.json ./
+COPY package.json yarn.lock ./
 
-RUN npm install --production
+RUN yarn install --prod
 
 COPY data ./data
 COPY server.js ./
 
-CMD ["npm", "start"]
+CMD ["yarn", "run", "start"]
