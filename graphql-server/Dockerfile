@@ -2,9 +2,11 @@ FROM node:9.6-alpine
 
 WORKDIR /opt/
 
-COPY data ./data
-COPY package.json package-lock.json server.js ./
+COPY package.json package-lock.json ./
 
-RUN npm install
+RUN npm install --production
+
+COPY data ./data
+COPY server.js ./
 
 CMD ["npm", "start"]
