@@ -11,8 +11,8 @@ Up-to-date documentation and explanations can be found in the [Apollo Server doc
 ```bash
 git clone https://github.com/apollostack/apollo-starter-kit
 cd apollo-starter-kit
-npm install
-npm start
+yarn install
+yarn run start
 ```
 
 Then open [http://localhost:3000/graphiql](http://localhost:3000/graphiql)
