@@ -5,28 +5,28 @@ import fetch from "isomorphic-unfetch"
 
 let server: string = "localhost"
 if (process.argv.length >= 4 && process.argv[2] === "--server") {
-  server = process.argv[3]
+    server = process.argv[3]
 }
 
 const client = new ApolloClient({
-  link: new HttpLink({ uri: `http://${server}:3000/graphql`, fetch }),
-  cache: new InMemoryCache()
+    link: new HttpLink({ uri: `http://${server}:3000/graphql`, fetch }),
+    cache: new InMemoryCache()
 })
 
 import gql from "graphql-tag"
 
 interface ResponseData {
-  author: {
-    firstName: string
-    lastName: string
-    posts: {
-      title: string
-    }[]
-  }
+    author: {
+        firstName: string
+        lastName: string
+        posts: {
+            title: string
+        }[]
+    }
 }
 
 client.query({
-  query: gql`
+    query: gql`
     query {
       author(firstName: "Edmond", lastName: "Jones") {
         firstName
@@ -38,8 +38,8 @@ client.query({
     }
   `,
 })
-  .then(data => {
-    const response: ResponseData = data.data as ResponseData
-    console.log("Author: ", response.author)
-  })
-  .catch(error => console.error(error))
+    .then(data => {
+        const response: ResponseData = data.data as ResponseData
+        console.log("Author: ", response.author)
+    })
+    .catch(error => console.error(error))

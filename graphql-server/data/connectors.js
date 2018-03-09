@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
 import casual from 'casual';
 import _ from 'lodash';
+import Mongoose from 'mongoose';
 
 const db = new Sequelize('blog', null, null, {
     dialect: 'sqlite',
@@ -20,6 +21,19 @@ const PostModel = db.define('post', {
 AuthorModel.hasMany(PostModel);
 PostModel.belongsTo(AuthorModel);
 
+Mongoose.Promise = global.Promise;
+
+const mongo = Mongoose.connect('mongodb://mongo/views', {
+    useMongoClient: true
+});
+
+const ViewSchema = Mongoose.Schema({
+    postId: Number,
+    views: Number,
+});
+
+const View = Mongoose.model('views', ViewSchema);
+
 // create mock data with a seed, so we always get the same
 casual.seed(123);
 db.sync({ force: true }).then(() => {
@@ -31,7 +45,13 @@ db.sync({ force: true }).then(() => {
             return author.createPost({
                 title: `A post by ${author.firstName}`,
                 text: casual.sentences(3),
-            });
+            }).then((post) => {
+                // create some View mocks
+                return View.update(
+                    { postId: post.id },
+                    { views: casual.integer(0, 100) },
+                    { upsert: true });
+            });;
         });
     });
 });
@@ -39,4 +59,4 @@ db.sync({ force: true }).then(() => {
 const Author = db.models.author;
 const Post = db.models.post;
 
-export { Author, Post };
+export { Author, Post, View };
