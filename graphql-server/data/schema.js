@@ -5,7 +5,7 @@ const typeDefs = `
 type Query {
   author(firstName: String, lastName: String): Author
   allAuthors: [Author]
-  getFortuneCookie: String
+  getFortuneCookie: String @cacheControl(maxAge: 5)
 }
 
 type Author {
