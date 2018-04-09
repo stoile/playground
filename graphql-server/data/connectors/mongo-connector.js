@@ -2,7 +2,9 @@ import Mongoose from 'mongoose';
 
 Mongoose.Promise = global.Promise;
 
-const mongo = Mongoose.connect(`mongodb://mongo/views`, {
+const MONGODB_SERVER = process.env.MONGODB_SERVER
+
+const mongo = Mongoose.connect(`mongodb://${MONGODB_SERVER}/views`, {
     useMongoClient: true,
     connectTimeoutMS: 400,
     socketTimeoutMS: 400,

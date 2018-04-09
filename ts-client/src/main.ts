@@ -34,6 +34,7 @@ client.query({
         lastName
         posts {
             title
+            views
         }
       }
       getFortuneCookie

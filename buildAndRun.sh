@@ -21,7 +21,9 @@ docker build -t "${TS_CLIENT_TAG}" .
 popd
 
 MONGODB_CONTAINER="$(docker run -d --rm "mongo:${MONGODB_TAG}")"
-SERVER_CONTAINER="$(docker run -d --rm --link "${MONGODB_CONTAINER}":mongo "${GRAPHQL_SERVER_TAG}")"
+
+MONGODB_SERVER="mongo"
+SERVER_CONTAINER="$(docker run -d --rm --link "${MONGODB_CONTAINER}":"${MONGODB_SERVER}" --env MONGODB_SERVER="${MONGODB_SERVER}" "${GRAPHQL_SERVER_TAG}")"
 
 trap 'docker stop "${SERVER_CONTAINER}"; docker stop "${MONGODB_CONTAINER}"' EXIT
 
