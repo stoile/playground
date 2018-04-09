@@ -2,6 +2,7 @@ import Sequelize from 'sequelize';
 import casual from 'casual';
 import _ from 'lodash';
 import Mongoose from 'mongoose';
+import fetch from 'node-fetch';
 
 const db = new Sequelize('blog', null, null, {
     dialect: 'sqlite',
@@ -34,6 +35,16 @@ const ViewSchema = Mongoose.Schema({
 
 const View = Mongoose.model('views', ViewSchema);
 
+const FortuneCookie = {
+    getOne() {
+        return fetch('http://fortunecookieapi.herokuapp.com/v1/cookie')
+            .then(res => res.json())
+            .then(res => {
+                return res[0].fortune.message;
+            });
+    }
+};
+
 // create mock data with a seed, so we always get the same
 casual.seed(123);
 db.sync({ force: true }).then(() => {
@@ -59,4 +70,4 @@ db.sync({ force: true }).then(() => {
 const Author = db.models.author;
 const Post = db.models.post;
 
-export { Author, Post, View };
+export { Author, Post, View, FortuneCookie };

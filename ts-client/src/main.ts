@@ -23,6 +23,7 @@ interface ResponseData {
             title: string
         }[]
     }
+    getFortuneCookie: string
 }
 
 client.query({
@@ -32,14 +33,16 @@ client.query({
         firstName
         lastName
         posts {
-          title
+            title
         }
       }
+      getFortuneCookie
     }
   `,
 })
     .then(data => {
         const response: ResponseData = data.data as ResponseData
         console.log("Author: ", response.author)
+        console.log("Fortune Cookie: ", response.getFortuneCookie)
     })
     .catch(error => console.error(error))
