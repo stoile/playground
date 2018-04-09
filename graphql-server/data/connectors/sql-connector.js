@@ -7,6 +7,7 @@ import { View } from './mongo-connector';
 const db = new Sequelize('blog', null, null, {
     dialect: 'sqlite',
     storage: './blog.sqlite',
+    operatorsAliases: false,
 });
 
 const AuthorModel = db.define('author', {
