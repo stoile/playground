@@ -4,6 +4,9 @@ set -eu -o pipefail
 MONGODB_TAG="3.6-jessie"
 
 GIT_REV="$(git rev-parse HEAD)"
+if ! git diff --quiet; then
+    GIT_REV="${GIT_REV}-dev"
+fi
 
 GRAPHQL_SERVER_TAG="graphql-server:rev_${GIT_REV}"
 
